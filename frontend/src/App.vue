@@ -1,9 +1,10 @@
 <template>
   <div id="app">
-    <form>
-      <label for="title">Title</label>
+    {{ msg }}
+    <form @submit.prevent="submitNote">
+      <label>Title</label>
       <input type="text" v-model="formData.title" name="title" />
-      <label for="content">Content</label>
+      <label>Content</label>
       <textarea v-model="formData.content" name="content"></textarea>
 
       <br />
@@ -14,6 +15,7 @@
 </template>
 
 <script>
+  import api from './api';
 export default {
   name: 'app',
   data () {
@@ -23,6 +25,15 @@ export default {
         title: '',
         content: ''
       }
+    }
+  },
+  methods: {
+    submitNote () {
+      api.fetchNotes('post', null, this.formData).then(res => {
+        this.msg = 'Saved'
+      }).catch(e => {
+        this.msg = e.response
+      })
     }
   }
 }

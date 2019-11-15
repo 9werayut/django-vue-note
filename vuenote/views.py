@@ -10,9 +10,10 @@ from .models import Note
 
 class NoteViewSet(viewsets.ModelViewSet):
     # check permission
-    permission_classes = (
-        IsAuthenticated,
-    )
+    # permission_classes = (
+    #     IsAuthenticated,
+    # )
+
     queryset = Note.objects.all()
     serializer_class = NoteSerializers
     lookup_field = 'id'
